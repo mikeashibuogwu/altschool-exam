@@ -1,9 +1,12 @@
 import { useRef, useState, useEffect, useContext } from 'react';
 import AuthContext from './context/AuthProvider';
 
-import axios from './api/axios';
 import { Helmet } from 'react-helmet-async';
 const LOGIN_URL = '/auth';
+const fakeAuth = () =>
+  new Promise((resolve) => {
+    setTimeout(() => resolve('2342f2f1d131rf12'), 250);
+  });
 
 const Login = () => {
 	const { setAuth } = useContext(AuthContext);
@@ -27,7 +30,7 @@ const Login = () => {
 		e.preventDefault();
 
 		try {
-			const response = await axios.post(
+			const response = await fakeAuth(
 				LOGIN_URL,
 				JSON.stringify({ user, pwd }),
 				{

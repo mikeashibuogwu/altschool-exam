@@ -1,10 +1,14 @@
 import { useRef, useState, useEffect } from 'react';
 import Login from './Login';
-import axios from './api/axios';
 import { Helmet } from 'react-helmet-async';
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = '/register';
+
+const fakeAuth = () =>
+  new Promise((resolve) => {
+    setTimeout(() => resolve('2342f2f1d131rf12'), 250);
+  });
 
 const Register = () => {
 	const userRef = useRef();
@@ -52,7 +56,7 @@ const Register = () => {
 			return;
 		}
 		try {
-			const response = await axios.post(
+			const response = await fakeAuth(
 				REGISTER_URL,
 				JSON.stringify({ user, pwd }),
 				{
